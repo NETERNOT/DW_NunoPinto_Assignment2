@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>Nuno Pinto</title>
+    <meta name="description" content="Design Portfolio of Nuno Pinto.">
+    <meta name="author" content="Nuno Pinto">
+
+    <!--  <meta name="theme-color" content="#0d6efd">
+    <meta property="og:title" content="Project Title">
+    <meta property="og:description" content="Short description of the page/project.">
+    <meta property="og:type" content="website"> -->
+
+    <link rel="icon" href="/favicon.ico">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Optional: small inline baseline styles for layout -->
+</head>
+
+<body>
+    <header id="top">
+        <div>
+            <p>@2025</p>
+            <p>WebDesigner</p>
+            <p>Nuno Pinto</p>
+        </div>
+        <div class="container">
+            <div>
+                <h1>Hi! I'm Nuno</h1>
+                <p>I’m a designer with a strong interest in generative design, web design, and development.
+                    I strive for my work to explore the intersection of creativity and technology, combining
+                    visual storytelling with code-driven processes. I’m particularly fascinated by how generative
+                    systems can create new forms of interaction and expression — pushing the boundaries of traditional
+                    design.</p>
+            </div>
+            <span></span>
+            <img src="images/Me.jpg" alt="Picture of Me!">
+            <div><img src="images/star.svg" alt="star"></div>
+
+        </div>
+        <div>
+            <p class="currentTime">18:05 +GMT00</p>
+            <p class="links"><a href="https://www.instagram.com/" target="_blank">Instagram</a><a
+                    href="http://linkedin.com/" target="_blank">LinkedIn</a><a href="CV.pdf" download="CV.pdf">CV <img
+                        src="images/downloadIcon.svg"></a></p>
+        </div>
+    </header>
+
+
+
+
+
+
+    <script>
+        const container = document.querySelector('.container');
+        document.addEventListener("scroll", () => {
+            const scrollY = window.scrollY;
+            container.style.transform = `translateY(${scrollY}px) scale(${1 - scrollY / 1000})`;
+
+        })
+
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const timezoneOffset = String(-now.getTimezoneOffset() / 60).padStart(2, "0");
+
+        document.querySelector('.currentTime').innerHTML = `${hours}:${minutes} GMT+${timezoneOffset}`
+    </script>
+</body>
+
+</html>
+</div>
