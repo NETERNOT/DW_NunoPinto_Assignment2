@@ -1,3 +1,5 @@
+/* ▸ FONT IMPORTS
+   -------------------------------------------------- */
 @font-face {
     font-family: "Apfel Grotesk";
     src: url("/fonts/ApfelGrotezk-Regular.woff2") format("woff2"),
@@ -7,12 +9,13 @@
     font-display: swap;
 }
 
-/* ---------- Root & Globals ---------- */
 
+/* ▸ ROOT VARIABLES & GLOBAL RESET
+   -------------------------------------------------- */
 :root {
     --black: #000;
     --white: #f8f8f8;
-
+    --gray: #e0e0e0;
     --font-size-small: .75rem;
 
     --primary-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -26,18 +29,21 @@
     font-family: var(--primary-font);
 }
 
-/* ---------- Layout ---------- */
 
+/* ▸ BASE LAYOUT
+   -------------------------------------------------- */
 body {
     width: 100%;
-    height: 200vh;
     background-color: var(--white);
 }
 
+
+/* ▸ HEADER SECTION: Landing Hero
+   -------------------------------------------------- */
 header {
     width: 100%;
     height: 100vh;
-    padding: 1rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -45,32 +51,33 @@ header {
     overflow-y: hidden;
     background-color: var(--white);
 
-    /* Header top & bottom rows */
-    &>div {
+    /* Top & bottom header rows */
+    & > div {
         width: 100%;
         display: flex;
         justify-content: space-between;
 
-        &>p {
+        & > p {
             font-size: var(--font-size-small);
         }
 
+        /* Social links row */
         & .links {
             display: flex;
             gap: 1rem;
-            text-decoration: underline;
 
             & a {
                 color: var(--black);
+                text-decoration: none;
+                border-bottom: solid 1px var(--black);
             }
         }
     }
 
+    /* Hero inner container with text, image, star */
     .container {
-        width: calc(100%-1rem);
+        width: calc(100% - 1rem);
         max-width: 50rem;
-        height: auto;
-        margin: 0;
         display: flex;
         flex-direction: row-reverse;
         justify-content: flex-end;
@@ -82,7 +89,7 @@ header {
             height: 1rem;
         }
 
-        &>* {
+        & > * {
             transition: all 0.5s ease;
 
             &:not(span, :first-child) {
@@ -93,9 +100,8 @@ header {
         }
 
         /* First text block */
-        &>:first-child {
+        & > :first-child {
             flex: 1;
-            aspect-ratio: auto;
 
             & h1 {
                 font-family: var(--secondary-font);
@@ -104,19 +110,17 @@ header {
             & p {
                 line-height: 110%;
             }
-
         }
 
-        /* Middle Image */
-        &>:nth-child(3) {
+        /* Middle image */
+        & > :nth-child(3) {
             object-fit: cover;
             object-position: top;
             border-radius: 0 1rem 1rem 0;
-
         }
 
-        /* Star block */
-        &> :last-child {
+        /* Star box */
+        & > :last-child {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -130,20 +134,107 @@ header {
                 height: auto;
             }
         }
-
-
-
     }
-
 }
 
 
+/* ▸ WORK SECTION: Showcase
+   -------------------------------------------------- */
+.work {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    /* Typography inside work section */
+    & p,
+    & button {
+        word-break: break-all;
+        text-wrap: wrap;
+        font-size: calc(var(--font-size-small) / 2 + 1vw);
+    }
+
+    /* Project image carousel */
+    .imageWrapper {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: .8vw;
+    }
+
+    /* 5-column project info row (fixed equal widths) */
+    .info {
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+
+        & > div {
+            width: calc(20% - .8rem);
+
+            &:first-child,&:nth-child(2){
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+            }
+            /* Align some columns to the right */
+            &:nth-child(3) > p,
+            &:nth-child(4) > p,
+            &:last-child > p {
+                text-align: right;
+            }
+
+            /* Layout for button sets */
+            & .buttonContainer {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            /* Small UI buttons */
+            & button {
+                outline: none;
+                border: none;
+                width: calc(.5rem + 10%);
+                aspect-ratio: 1;
+                background-color: var(--gray);
+                border-radius: calc(.2rem + 0.2vw);
+                padding-bottom: 2%;
+                text-align: center;
+            }
+        }
+    }
+
+    /* Description area under columns */
+    .descContainer {
+        width: 100%;
+        overflow: hidden;
+        padding: calc(.2rem + 1vw) 0 0 calc(1*((20% - .8rem) + 1rem));
+    }
+}
 
 
+/* ▸ GLOBAL: Carousel Base Styles
+   -------------------------------------------------- */
+.carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+
+    & > * {
+        flex: 0 0 100%;
+        transition: transform 0.5s cubic-bezier(1, 0, 0, 1);
+
+        & > img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
 
 
-
-
+/* ▸ MEDIA QUERY: ≥1080px Layout Adjustments
+   -------------------------------------------------- */
 @media screen and (min-width:1080px) {
     header {
         & .container {
@@ -154,19 +245,18 @@ header {
                 height: 0;
             }
 
-            &>*:not(span, :first-child) {
+            & > *:not(span, :first-child) {
                 flex: 0 0 25%;
                 max-width: 25%;
             }
 
-            /* First text block */
-            &>:first-child {
+            & > :first-child {
                 padding-left: 1rem;
                 transition: transform 0.5s ease, opacity 0.25s ease 0.25s;
-
             }
 
-            &:not(:hover)>* {
+            /* Hover intro animation */
+            &:not(:hover) > * {
                 border-radius: 1rem;
 
                 &:first-child {
@@ -183,28 +273,31 @@ header {
                     transform: translateX(50%);
                 }
             }
-
         }
-
     }
 
+    /* Align description at desktop spacing */
+    .work .descContainer {
+            padding: calc(.2rem + 1vw) calc(1*((20% - .8rem) + 1rem)) 0;
+    }
 }
 
+
+/* ▸ MEDIA QUERY: ≥1360px Layout Adjustments
+   -------------------------------------------------- */
 @media screen and (min-width:1360px) {
     header {
         & .container {
-
-            &>*:not(span, :first-child) {
+            & > *:not(span, :first-child) {
                 flex: 0 0 33.33%;
                 max-width: 33.33%;
             }
 
-            /* First text block */
-            &>:first-child {
+            & > :first-child {
                 aspect-ratio: 1;
             }
 
-            &:not(:hover)>* {
+            &:not(:hover) > * {
                 border-radius: 1rem;
 
                 &:first-child {
@@ -215,16 +308,17 @@ header {
 
                 &:last-child {
                     transform: translateX(100%);
-
                 }
 
                 &:nth-child(3) {
                     transform: translateX(0);
                 }
             }
-
         }
-
     }
 
+    /* Slightly increased left padding for larger screens */
+    .work .descContainer {
+        padding: calc(.2rem + 1vw) calc(2*((20% - .8rem) + 1rem)) 0 calc(1*((20% - .8rem) + 1rem));
+    }
 }
