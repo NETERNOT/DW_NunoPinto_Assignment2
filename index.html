@@ -66,7 +66,7 @@
             </div>
             <div class="info">
                 <div>
-                    <p>***</p>
+                    <div class="pagination"><span>*</span><span>*</span><span>*</span><span>*</span></div>
                     <span class="buttonContainer"><button>&lt;</button><button>></button></span>
                 </div>
                 <div>
@@ -136,20 +136,32 @@
 
 
         const carousels = document.querySelectorAll('.carousel')
+        const stars = document.querySelectorAll('.pagination span')
+        console.log(stars)
         let counter = 0
 
+
         function moveCarousel() {
+            let total = 0
             for (carousel of carousels) {
                 let children = carousel.children
-                let total = children.length
+                total = children.length
                 for (child of children) {
                     child.style.transform = `translateX(-${counter % total}00%)`
                 }
             }
 
+            total = stars.length
+            stars.forEach((star, index) => {
+                if(index > counter%total) 
+                    star.style.paddingLeft = '100%'
+                else
+                    star.style.paddingLeft = '0%'
+            })
+
             counter += 1
         }
-
+        moveCarousel()
         setInterval(moveCarousel, 5000)
 
     </script>
