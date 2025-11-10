@@ -1,4 +1,3 @@
-
 const container = document.querySelector(".container");
 document.addEventListener("scroll", () => {
   const scrollY = window.scrollY;
@@ -16,28 +15,10 @@ document.querySelector(
   ".currentTime"
 ).innerHTML = `${hours}:${minutes} GMT+${timezoneOffset}`;
 
-const carousels = document.querySelectorAll(".carousel");
-const stars = document.querySelectorAll(".pagination span");
-console.log(stars);
-let counter = 0;
 
-function moveCarousel() {
-  let total = 0;
-  for (carousel of carousels) {
-    let children = carousel.children;
-    total = children.length;
-    for (child of children) {
-      child.style.transform = `translateX(-${counter % total}00%)`;
-    }
-  }
+const captionButton = document.querySelector(".projTitle button")
+const descContainer = document.querySelector(".descContainer")
 
-  total = stars.length;
-  stars.forEach((star, index) => {
-    if (index > counter % total) star.style.paddingLeft = "100%";
-    else star.style.paddingLeft = "0%";
-  });
-
-  counter += 1;
-}
-moveCarousel();
-setInterval(moveCarousel, 5000);
+captionButton.addEventListener("click", ()=>{
+    descContainer.classList.toggle("active")
+})
