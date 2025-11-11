@@ -1,5 +1,6 @@
 /* ▸ FONT IMPORTS
    -------------------------------------------------- */
+/* Loads Apfel Grotesk font in regular weight for secondary typography */
 @font-face {
     font-family: "Apfel Grotesk";
     src: url("/fonts/ApfelGrotezk-Regular.woff2") format("woff2"),
@@ -12,16 +13,26 @@
 
 /* ▸ ROOT VARIABLES & GLOBAL RESET
    -------------------------------------------------- */
+/* Color, font, and size variables for consistent styling */
 :root {
     --black: #000;
     --white: #f8f8f8;
     --gray: #e0e0e0;
+
     --font-size-small: .75rem;
+    --variable-font-size-small: calc(var(--font-size-small) / 2 + 1vw);
+    --font-size-regular: 1rem;
+    --font-size-medium: 1.5rem; /* new */
+    --font-size-large: 2rem; /* redefined */
+    --font-size-Xlarge: 3rem;
+    --font-size-XXlarge: 4rem;
+    --font-size-Gigantic: 6rem;
 
     --primary-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
     --secondary-font: "Apfel Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+/* Global reset to unify spacing and sizing across browsers */
 * {
     margin: 0;
     padding: 0;
@@ -29,9 +40,15 @@
     font-family: var(--primary-font);
 }
 
+/* Smooth scrolling for anchor navigation */
+html {
+    scroll-behavior: smooth;
+}
+
 
 /* ▸ BASE LAYOUT
    -------------------------------------------------- */
+/* Global body wrapper with full width and background */
 body {
     width: 100%;
     background-color: var(--white);
@@ -41,6 +58,7 @@ body {
 /* ▸ HEADER SECTION: Landing Hero
    -------------------------------------------------- */
 header {
+    /* Full-screen hero layout with vertical spacing */
     width: 100%;
     height: 100vh;
     padding: 2rem;
@@ -51,13 +69,13 @@ header {
     overflow-y: hidden;
     background-color: var(--white);
 
-    /* Top & bottom header rows */
-    &>div {
+    /* Header top and bottom rows */
+    & > div {
         width: 100%;
         display: flex;
         justify-content: space-between;
 
-        &>p {
+        & > p {
             font-size: var(--font-size-small);
         }
 
@@ -74,7 +92,7 @@ header {
         }
     }
 
-    /* Hero inner container with text, image, star */
+    /* Hero content container: text, spacer, image, star graphic */
     .container {
         width: calc(100% - 1rem);
         max-width: 50rem;
@@ -84,12 +102,14 @@ header {
         align-items: center;
         flex-wrap: wrap-reverse;
 
+        /* Spacer element to help layout distribution */
         & span {
             width: 100%;
             height: 1rem;
         }
 
-        &>* {
+        /* Shared transitions for children (except span + first child) */
+        & > * {
             transition: all 0.5s ease;
 
             &:not(span, :first-child) {
@@ -99,28 +119,30 @@ header {
             }
         }
 
-        /* First text block */
-        &> :first-child {
+        /* Intro text block */
+        & > :first-child {
             flex: 1;
 
             & h1 {
                 font-family: var(--secondary-font);
+                font-size: var(--font-size-Xlarge);
             }
 
             & p {
                 line-height: 110%;
+                font-size: var(--font-size-regular);
             }
         }
 
-        /* Middle image */
-        &> :nth-child(3) {
+        /* Main image */
+        & > :nth-child(3) {
             object-fit: cover;
             object-position: top;
             border-radius: 0 1rem 1rem 0;
         }
 
-        /* Star box */
-        &> :last-child {
+        /* Star graphic container */
+        & > :last-child {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -137,48 +159,90 @@ header {
     }
 }
 
-#curiculum {
+
+/* ▸ NAVIGATION BAR
+   -------------------------------------------------- */
+nav {
+    /* Sticky nav centered on screen */
+    width: 100%;
+    position: sticky;
+    top: 1rem;
+    z-index: 1000;
+    padding: 0 2rem;
+
+    display: flex;
+    justify-content: center;
+
+    & > div {
+        /* Nav pill container */
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        background-color: var(--white);
+        border: solid 2px var(--black);
+        border-radius: 1rem;
+        padding: 1rem;
+    }
+
+    & img {
+        height: 1rem;
+    }
+
+    & a {
+        text-decoration: none;
+        color: var(--black);
+        font-size: var(--font-size-regular);
+    }
+}
+
+
+/* ▸ CURRICULUM SECTION
+   -------------------------------------------------- */
+#curriculum {
+    /* Vertical list of education + experience blocks */
     width: 100%;
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: var(--font-size-large);
 
-    &>div {
+    & > div {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        gap: var(--font-size-small);
 
-        &>* {
+        & > * {
             display: block;
         }
 
+        /* Divider lines between entries */
         & .divider {
             width: 100%;
             border: solid 1px var(--gray);
         }
 
         & h1 {
-            font-size: 3rem;
+            font-size: var(--font-size-Xlarge);
             font-weight: 500;
         }
 
         & h2 {
-            font-size: 1.5rem;
+            font-size: var(--font-size-medium);
             font-weight: 500;
         }
 
         & p:nth-child(2) {
-            font-size: 1rem;
+            /* Subheading: institution/company */
+            font-size: var(--font-size-regular);
             font-weight: 500;
         }
 
         & p:last-child {
+            /* Year info */
             font-size: var(--font-size-small);
             font-weight: 400;
         }
-
     }
 }
 
@@ -186,43 +250,45 @@ header {
 /* ▸ WORK SECTION: Showcase
    -------------------------------------------------- */
 #work {
+    /* Work section layout with title, carousel & metadata */
     width: 100%;
-    padding: 2rem;
+    padding: var(--font-size-large);
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--font-size-small);
 
-    /* Typography inside work section */
+    /* Typography scale for project info */
     & p,
     & button,
     & span {
         word-break: break-all;
         text-wrap: wrap;
-        font-size: calc(var(--font-size-small) / 2 + 1vw);
+        font-size: var(--variable-font-size-small);
     }
 
     & h1 {
-        font-size: 3rem;
+        font-size: var(--font-size-Xlarge);
         font-weight: 500;
     }
 
-    /* Project image carousel */
+    /* Big project image carousel area */
     .imageWrapper {
         width: 100%;
         aspect-ratio: 16/9;
         border-radius: .8vw;
     }
 
-    /* 5-column project info row (fixed equal widths) */
+    /* 5-column layout under main image */
     .info {
         width: 100%;
         display: flex;
         gap: 1rem;
 
-        &>div {
+        & > div {
             width: calc(20% - .8rem);
             overflow: hidden;
 
+            /* Pagination + project title column layouts */
             &:first-child,
             &:nth-child(2) {
                 display: flex;
@@ -245,35 +311,36 @@ header {
                 }
             }
 
-            /* Align some columns to the right */
-            &:nth-child(3)>p,
-            &:nth-child(4)>p,
-            &:last-child>p {
+            /* Align right-side columns */
+            &:nth-child(3) > p,
+            &:nth-child(4) > p,
+            &:last-child > p {
                 text-align: right;
             }
 
-            /* Layout for button sets */
+            /* Container for carousel nav buttons */
             & .buttonContainer {
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
             }
 
-            /* Small UI buttons */
+            /* Small pagination buttons */
             & button {
                 outline: none;
                 border: none;
-                width: calc(.5rem + 10%);
+                width: calc(1rem + 7.5%);
                 aspect-ratio: 1;
                 background-color: var(--gray);
                 border-radius: calc(.2rem + 0.2vw);
                 padding-bottom: 2%;
                 text-align: center;
+                font-size: var(--variable-font-size-small);
             }
         }
     }
 
-    /* Description area under columns */
+    /* Hidden description block that expands when active */
     .descContainer {
         width: 100%;
         overflow: hidden;
@@ -291,16 +358,17 @@ header {
 
 /* ▸ GLOBAL: Carousel Base Styles
    -------------------------------------------------- */
+/* Generic carousel wrapper for sliding content */
 .carousel {
     display: flex;
     flex-wrap: nowrap;
     overflow: hidden;
 
-    &>* {
+    & > * {
         flex: 0 0 100%;
         transition: transform 0.5s cubic-bezier(1, 0, 0, 1);
 
-        &>img {
+        & > img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -309,10 +377,67 @@ header {
 }
 
 
+/* ▸ FOOTER
+   -------------------------------------------------- */
+footer {
+    /* Full-height dark footer with contact details */
+    color: var(--white);
+    width: 100%;
+    min-height: 90vh;
+    background-color: var(--black);
+    padding: var(--font-size-large);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & h1 {
+        font-family: var(--secondary-font);
+        font-size: var(--font-size-Gigantic);
+        line-height: 100%;
+    }
+
+    & a {
+        color: var(--white);
+        text-decoration: none;
+        font-size: var(--font-size-XXlarge);
+        border-bottom: solid 2px var(--white);
+        width: max-content;
+        word-break: break-all;
+        max-width: 100%;
+    }
+
+    & > div {
+        display: flex;
+        width: 100%;
+
+        &:first-child {
+            flex-direction: column;
+        }
+
+        &:last-child {
+            justify-content: space-between;
+            align-items: end;
+
+            & svg {
+                height: var(--font-size-Gigantic);
+                width: auto;
+            }
+        }
+    }
+}
+
+
 /* ▸ MEDIA QUERY: ≥1080px Layout Adjustments
    -------------------------------------------------- */
 @media screen and (min-width:1080px) {
+    /* Reduce nav width on larger screens */
+    nav > div {
+        width: 70%;
+    }
+
     header {
+        /* Desktop hero layout adjustments */
         & .container {
             max-width: 70%;
 
@@ -321,18 +446,18 @@ header {
                 height: 0;
             }
 
-            &>*:not(span, :first-child) {
+            & > *:not(span, :first-child) {
                 flex: 0 0 25%;
                 max-width: 25%;
             }
 
-            &> :first-child {
+            & > :first-child {
                 padding-left: 1rem;
                 transition: transform 0.5s ease, opacity 0.25s ease 0.25s;
             }
 
-            /* Hover intro animation */
-            &:not(:hover)>* {
+            /* Hover-based intro animation */
+            &:not(:hover) > * {
                 border-radius: 1rem;
 
                 &:first-child {
@@ -352,7 +477,7 @@ header {
         }
     }
 
-    /* Align description at desktop spacing */
+    /* Align work description to match desktop spacing */
     #work .descContainer {
         padding: calc(.2rem + 1vw) calc(1*((20% - .8rem) + 1rem)) 0;
     }
@@ -362,18 +487,23 @@ header {
 /* ▸ MEDIA QUERY: ≥1360px Layout Adjustments
    -------------------------------------------------- */
 @media screen and (min-width:1360px) {
+    /* Tighter nav width for very large screens */
+    nav > div {
+        width: 50%;
+    }
+
     header {
         & .container {
-            &>*:not(span, :first-child) {
+            & > *:not(span, :first-child) {
                 flex: 0 0 33.33%;
                 max-width: 33.33%;
             }
 
-            &> :first-child {
+            & > :first-child {
                 aspect-ratio: 1;
             }
 
-            &:not(:hover)>* {
+            &:not(:hover) > * {
                 border-radius: 1rem;
 
                 &:first-child {
@@ -393,7 +523,7 @@ header {
         }
     }
 
-    /* Slightly increased left padding for larger screens */
+    /* Increased left padding for wider layouts */
     #work .descContainer {
         padding: calc(.2rem + 1vw) calc(2*((20% - .8rem) + 1rem)) 0 calc(1*((20% - .8rem) + 1rem));
     }
