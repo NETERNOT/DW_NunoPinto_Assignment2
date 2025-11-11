@@ -13,14 +13,11 @@ header {
     background-color: var(--white);
 
     /* Header top and bottom rows */
-    & > div {
+    &>div:not(.containerAbout) {
         width: 100%;
         display: flex;
         justify-content: space-between;
-
-        & > p {
-            font-size: var(--font-size-small);
-        }
+        font-size: var(--font-size-small);
 
         /* Social links row */
         & .links {
@@ -28,15 +25,34 @@ header {
             gap: 1rem;
 
             & a {
-                color: var(--black);
-                text-decoration: none;
                 border-bottom: solid 1px var(--black);
+            }
+        }
+
+        & a {
+            color: var(--black);
+            text-decoration: none;
+        }
+
+        & .continueButton{
+            display: flex;
+            gap: .75rem;
+
+            & img {
+                transform: rotate(180deg);
+                filter: invert(1);
+                height: var(--font-size-small);
+                transition: transform 0.5s ease;
+            }
+
+            &:hover>img{
+                transform: rotate(180deg), translateY(-5px);
             }
         }
     }
 
     /* Hero content container: text, spacer, image, star graphic */
-    .container {
+    .containerAbout {
         width: calc(100% - 1rem);
         max-width: 50rem;
         display: flex;
@@ -52,7 +68,7 @@ header {
         }
 
         /* Shared transitions for children (except span + first child) */
-        & > * {
+        &>* {
             transition: all 0.5s ease;
 
             &:not(span, :first-child) {
@@ -63,7 +79,7 @@ header {
         }
 
         /* Intro text block */
-        & > :first-child {
+        &> :first-child {
             flex: 1;
 
             & h1 {
@@ -78,14 +94,14 @@ header {
         }
 
         /* Main image */
-        & > :nth-child(3) {
+        &> :nth-child(3) {
             object-fit: cover;
             object-position: top;
             border-radius: 0 1rem 1rem 0;
         }
 
         /* Star graphic container */
-        & > :last-child {
+        &> :last-child {
             display: flex;
             justify-content: center;
             align-items: center;

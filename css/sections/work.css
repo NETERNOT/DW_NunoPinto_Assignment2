@@ -34,7 +34,7 @@
         display: flex;
         gap: 1rem;
 
-        & > div {
+        &>div {
             width: calc(20% - .8rem);
             overflow: hidden;
 
@@ -62,9 +62,9 @@
             }
 
             /* Align right-side columns */
-            &:nth-child(3) > p,
-            &:nth-child(4) > p,
-            &:last-child > p {
+            &:nth-child(3)>p,
+            &:nth-child(4)>p,
+            &:last-child>p {
                 text-align: right;
             }
 
