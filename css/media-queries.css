@@ -45,6 +45,10 @@
                 }
             }
         }
+
+        &>div:not(.containerAbout) .links{
+            flex-direction: row;
+        }
     }
 
     /* Align work description to match desktop spacing */

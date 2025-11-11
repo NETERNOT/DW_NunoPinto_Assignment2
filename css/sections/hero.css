@@ -18,14 +18,18 @@ header {
         display: flex;
         justify-content: space-between;
         font-size: var(--font-size-small);
+        align-items: end;
 
         /* Social links row */
         & .links {
             display: flex;
             gap: 1rem;
+            flex-direction: column;
+            align-items: end;
 
             & a {
                 border-bottom: solid 1px var(--black);
+                width: max-content;
             }
         }
 
