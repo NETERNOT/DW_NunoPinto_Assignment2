@@ -1,6 +1,6 @@
 const API_KEY = "qR4ziHpPM6em6t1N0Tq7GyJC6Ig8P2p66b2bWFi2ozNzy7OYEybWMpMS";
 const IMAGE_COUNT = 2;
-const QUERY = "bacon";
+const QUERY = "black sand beach";
 let stars = []
 
 document.addEventListener("DOMContentLoaded", () => {
