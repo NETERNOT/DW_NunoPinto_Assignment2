@@ -8,7 +8,7 @@
 
     header {
         /* Desktop hero layout adjustments */
-        & .container {
+        & .containerAbout {
             max-width: 70%;
 
             & span {
@@ -73,7 +73,7 @@
     }
 
     header {
-        & .container {
+        & .containerAbout {
             & > *:not(span, :first-child) {
                 flex: 0 0 33.33%;
                 max-width: 33.33%;
