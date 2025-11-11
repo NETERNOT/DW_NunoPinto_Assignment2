@@ -15,6 +15,7 @@ Nuno Pinto
 - Custom cursor icons
 - Smooth animations and responsive design
 - Automatic mock-work generation, with automatic scrolling
+- Loading animation
 
 # Technologies
 
