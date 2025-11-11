@@ -1,13 +1,6 @@
-const API_KEY = "qR4ziHpPM6em6t1N0Tq7GyJC6Ig8P2p66b2bWFi2ozNzy7OYEybWMpMS";
-const IMAGE_COUNT = 2;
-const QUERY = "black sand beach";
-let stars = []
+import { IMAGE_COUNT, API_KEY, QUERY } from "../config.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  fetchContent();
-});
-
-async function fetchContent() {
+export async function fetchContent() {
   const url = `https://api.pexels.com/v1/search?query=${QUERY}&per_page=${IMAGE_COUNT}&orientation=landscape`;
 
   try {
@@ -22,37 +15,41 @@ async function fetchContent() {
     }
 
     const data = await response.json();
-    const imageWrapper = document.querySelector(".imageWrapper");
-    imageWrapper.innerHTML = renderImages(data);
 
+    // Render images
+    const imageWrapper = document.querySelector(".imageWrapper");
+    if (imageWrapper) imageWrapper.innerHTML = renderImages(data);
+
+    // Populate carousel content
     const paginationDiv = document.querySelector(".pagination");
-    paginationDiv.innerHTML = getText("pagination");
+    if (paginationDiv) paginationDiv.innerHTML = getText("pagination");
 
     const titleDiv = document.querySelector(".projTitle>.carousel");
-    titleDiv.innerHTML = getText("title");
+    if (titleDiv) titleDiv.innerHTML = getText("title");
 
     const designAreaDiv = document.querySelector(".areaDesign");
-    designAreaDiv.innerHTML = getText("areas");
+    if (designAreaDiv) designAreaDiv.innerHTML = getText("areas");
 
     const dateDiv = document.querySelector(".dayAndMonth");
-    dateDiv.innerHTML = getText("date");
+    if (dateDiv) dateDiv.innerHTML = getText("date");
 
     const yearDiv = document.querySelector(".year");
-    yearDiv.innerHTML = getText("year");
+    if (yearDiv) yearDiv.innerHTML = getText("year");
 
     const descriptionDiv = document.querySelector(".descContainer>.carousel");
-    descriptionDiv.innerHTML = getText("description");
+    if (descriptionDiv) descriptionDiv.innerHTML = getText("description");
 
-    stars = document.querySelectorAll(".pagination span");
+    return document.querySelectorAll(".pagination span"); // Stars for carousel
   } catch (error) {
     console.error("Error loading images:", error);
+    return [];
   }
 }
 
 function renderImages(data) {
   let html = "";
   data.photos.forEach((photo) => {
-    html += `<div class="carouselItem"><img src=${photo.src.landscape} alt=${photo.alt}></div>`;
+    html += `<div class="carouselItem"><img src=${photo.src.landscape} alt="${photo.alt}"></div>`;
   });
   return html;
 }
@@ -92,54 +89,13 @@ function getText(type) {
 }
 
 function getRandomDate() {
-  let day = String(Math.floor(Math.random() * 29 + 1)).padStart(2, "0");
-  let month = String(Math.floor(Math.random() * 11 + 1)).padStart(2, "0");
-
+  const day = String(Math.floor(Math.random() * 29 + 1)).padStart(2, "0");
+  const month = String(Math.floor(Math.random() * 11 + 1)).padStart(2, "0");
   return day + "." + month;
 }
 
 function getRandomAreas() {
   const categories = ["WebDesign", "UX/UI", "Motion", "Generative", "Graphic"];
-
   const selected = categories.filter(() => Math.random() > 0.5);
-
   return (selected.length ? selected : ["WebDesign"]).join(", ");
 }
-
-/* CAROUSEL LOGIC */
-const carousels = document.querySelectorAll(".carousel");
-
-let timer;
-
-let counter = -1;
-
-function moveCarousel(dir = 1) {
-  counter += dir;
-  let currentSlide = ((counter % IMAGE_COUNT) + IMAGE_COUNT) % IMAGE_COUNT;
-
-  for (carousel of carousels) {
-    let children = carousel.children;
-    for (child of children) {
-      child.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
-  }
-
-  stars.forEach((star, index) => {
-    if (index > currentSlide) star.style.paddingLeft = "100%";
-    else star.style.paddingLeft = "0%";
-  });
-
-  resetTimer();
-}
-moveCarousel();
-
-function resetTimer() {
-  clearTimeout(timer);
-  timer = setTimeout(() => moveCarousel(), 5000);
-}
-
-const fwrdButton = document.querySelector(".buttonContainer :last-child");
-fwrdButton.addEventListener("click", () => moveCarousel());
-
-const bkwButton = document.querySelector(".buttonContainer :first-child");
-bkwButton.addEventListener("click", () => moveCarousel(-1));
