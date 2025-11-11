@@ -1,5 +1,5 @@
 export function initScrollEffects() {
-  const container = document.querySelector(".container");
+  const container = document.querySelector(".containerAbout");
 
   if (!container) return; // Safety check if container exists
 

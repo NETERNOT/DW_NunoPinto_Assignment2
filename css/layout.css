@@ -4,6 +4,8 @@
 body {
     width: 100%;
     background-color: var(--white);
+    cursor: url("../assets/images/cursor.svg"), auto;
+
 }
 
 
@@ -20,7 +22,7 @@ nav {
     display: flex;
     justify-content: center;
 
-    & > div {
+    &>div {
         /* Nav pill container */
         width: 100%;
         display: flex;
