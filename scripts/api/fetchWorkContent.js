@@ -1,18 +1,30 @@
 import { IMAGE_COUNT, API_KEY, QUERY } from "../config.js";
 
+/* ------------------ LOADER + SCROLL CONTROL FIXES ------------------ */
+
+history.scrollRestoration = "manual";              // Stop browser auto-restoring scroll
+window.scrollTo(0, 0);                             // Force page to top instantly
+document.body.classList.add("no-scroll");          // Disable scrolling during loader
+
+// If URL has hash, block initial auto-jump and retry after loader
+const pendingHash = window.location.hash;
+if (pendingHash) {
+  setTimeout(() => {
+    window.scrollTo(0, 0);
+  }, 0);
+}
+
+/* ------------------ MAIN FETCH FUNCTION ------------------ */
+
 export async function fetchContent() {
   const url = `https://api.pexels.com/v1/search?query=${QUERY}&per_page=${IMAGE_COUNT}&orientation=landscape`;
 
   try {
     const response = await fetch(url, {
-      headers: {
-        Authorization: API_KEY,
-      },
+      headers: { Authorization: API_KEY },
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch images from Pexels");
-    }
+    if (!response.ok) throw new Error("Failed to fetch images from Pexels");
 
     const data = await response.json();
 
@@ -21,67 +33,41 @@ export async function fetchContent() {
     if (imageWrapper) imageWrapper.innerHTML = renderImages(data);
 
     // Populate carousel content
-    const paginationDiv = document.querySelector(".pagination");
-    if (paginationDiv) paginationDiv.innerHTML = getText("pagination");
+    document.querySelector(".pagination").innerHTML = getText("pagination");
+    document.querySelector(".projTitle>.carousel").innerHTML = getText("title");
+    document.querySelector(".areaDesign").innerHTML = getText("areas");
+    document.querySelector(".dayAndMonth").innerHTML = getText("date");
+    document.querySelector(".year").innerHTML = getText("year");
+    document.querySelector(".descContainer>.carousel").innerHTML = getText("description");
 
-    const titleDiv = document.querySelector(".projTitle>.carousel");
-    if (titleDiv) titleDiv.innerHTML = getText("title");
-
-    const designAreaDiv = document.querySelector(".areaDesign");
-    if (designAreaDiv) designAreaDiv.innerHTML = getText("areas");
-
-    const dateDiv = document.querySelector(".dayAndMonth");
-    if (dateDiv) dateDiv.innerHTML = getText("date");
-
-    const yearDiv = document.querySelector(".year");
-    if (yearDiv) yearDiv.innerHTML = getText("year");
-
-    const descriptionDiv = document.querySelector(".descContainer>.carousel");
-    if (descriptionDiv) descriptionDiv.innerHTML = getText("description");
-
-    return document.querySelectorAll(".pagination span"); // Stars for carousel
+    hideLoader();
   } catch (error) {
     console.error("Error loading images:", error);
-    return [];
+    hideLoader(); // still hide the loader so user isn't stuck
   }
 }
 
+/* ------------------ RENDER HELPERS ------------------ */
+
 function renderImages(data) {
-  let html = "";
-  data.photos.forEach((photo) => {
-    html += `<div class="carouselItem"><img src=${photo.src.landscape} alt="${photo.alt}"></div>`;
-  });
-  return html;
+  return data.photos.map(
+    (photo) => `<div class="carouselItem"><img src="${photo.src.landscape}" alt="${photo.alt}"></div>`
+  ).join("");
 }
 
 function getText(type) {
   let html = "";
   for (let i = 0; i < IMAGE_COUNT; i++) {
     switch (type) {
-      case "pagination":
-        html += "<span>*</span>";
-        break;
-
-      case "title":
-        html += `<p>Lorem Ipsum ${i}</p>`;
-        break;
-
-      case "areas":
-        html += `<p>${getRandomAreas()}</p>`;
-        break;
-
-      case "date":
-        html += `<p>${getRandomDate()}</p>`;
-        break;
-
-      case "year":
-        html += `<p>${String(Math.floor(Math.random() * 10 + 2015))}</p>`;
-        break;
-
+      case "pagination": html += "<span>*</span>"; break;
+      case "title": html += `<p>Lorem Ipsum ${i}</p>`; break;
+      case "areas": html += `<p>${getRandomAreas()}</p>`; break;
+      case "date": html += `<p>${getRandomDate()}</p>`; break;
+      case "year": html += `<p>${String(Math.floor(Math.random() * 10 + 2015))}</p>`; break;
       case "description":
         html += `<p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                  suffered alteration in some form, by injected humour, or randomised words which don't look
-                  even slightly believable. If you are going to use a passage of Lorem Ipsum</p>`;
+        suffered alteration in some form, by injected humour, or randomised words which don't look
+        even slightly believable. If you are going to use a passage of Lorem Ipsum</p>`;
         break;
     }
   }
@@ -98,4 +84,27 @@ function getRandomAreas() {
   const categories = ["WebDesign", "UX/UI", "Motion", "Generative", "Graphic"];
   const selected = categories.filter(() => Math.random() > 0.5);
   return (selected.length ? selected : ["WebDesign"]).join(", ");
+}
+
+/* ------------------ HIDE LOADER ------------------ */
+
+function hideLoader() {
+  const loadingDiv = document.getElementById("loading");
+  const loaderImg = loadingDiv.querySelector("img");
+
+  const rotationDuration = 1500;
+  loaderImg.style.animationIterationCount = 1;
+
+  setTimeout(() => {
+    loadingDiv.classList.remove("active");
+    loadingDiv.classList.add("exit");
+    document.body.classList.remove("no-scroll");   // Enable scrolling
+
+    // If hash exists, scroll to it AFTER loader runs
+    if (pendingHash) {
+      const target = document.querySelector(pendingHash);
+      if (target) target.scrollIntoView({ behavior: "smooth" });
+    }
+
+  }, rotationDuration);
 }

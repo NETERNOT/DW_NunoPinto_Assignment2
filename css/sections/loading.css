@@ -1,0 +1,53 @@
+#loading {
+    background-color: var(--black);
+    width: 100%;
+    padding:2rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    position: fixed;
+    top: -100vh;
+    transition: top 1s ease-in .5s, opacity .5s ease;
+    z-index: 1001;
+
+    opacity: 1;
+    color: var(--white);
+    font-size: var(--font-size-large);
+
+    &.active {
+        top: 0;
+
+        & img {
+            animation: rotate 1s  cubic-bezier(1,0,0,1) infinite;
+        }
+    }
+
+    & p:first-child{
+        /* To center and match hero section star */
+        opacity: 0;
+    }
+    & img {
+        filter: invert(1);
+        max-width: 90%;
+    }
+
+    &.exit {
+        opacity: 0;
+        top: -100vh;
+    }
+}
+
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

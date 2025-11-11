@@ -1,6 +1,7 @@
 @import url("base.css");
 @import url("layout.css");
 @import url("components.css");
+@import url("sections/loading.css");
 @import url("sections/hero.css");
 @import url("sections/curriculum.css");
 @import url("sections/work.css");

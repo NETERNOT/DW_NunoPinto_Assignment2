@@ -6,6 +6,10 @@ body {
     background-color: var(--white);
     cursor: url("../assets/images/cursor.svg"), auto;
 
+    &.no-scroll{
+        overflow: hidden;
+        height: 100vh;
+    }
 }
 
 
