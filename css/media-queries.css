@@ -1,0 +1,100 @@
+/* ▸ MEDIA QUERY: ≥1080px Layout Adjustments
+   -------------------------------------------------- */
+@media screen and (min-width:1080px) {
+    /* Reduce nav width on larger screens */
+    nav > div {
+        width: 70%;
+    }
+
+    header {
+        /* Desktop hero layout adjustments */
+        & .container {
+            max-width: 70%;
+
+            & span {
+                width: 0;
+                height: 0;
+            }
+
+            & > *:not(span, :first-child) {
+                flex: 0 0 25%;
+                max-width: 25%;
+            }
+
+            & > :first-child {
+                padding-left: 1rem;
+                transition: transform 0.5s ease, opacity 0.25s ease 0.25s;
+            }
+
+            /* Hover-based intro animation */
+            &:not(:hover) > * {
+                border-radius: 1rem;
+
+                &:first-child {
+                    transform: translateX(-50%);
+                    opacity: 0;
+                    transition: transform 0.5s ease 0.25s, opacity 0.25s ease;
+                }
+
+                &:last-child {
+                    transform: translateX(150%);
+                }
+
+                &:nth-child(3) {
+                    transform: translateX(50%);
+                }
+            }
+        }
+    }
+
+    /* Align work description to match desktop spacing */
+    #work .descContainer {
+        padding: calc(.2rem + 1vw) calc(1*((20% - .8rem) + 1rem)) 0;
+    }
+}
+
+
+/* ▸ MEDIA QUERY: ≥1360px Layout Adjustments
+   -------------------------------------------------- */
+@media screen and (min-width:1360px) {
+    /* Tighter nav width for very large screens */
+    nav > div {
+        width: 50%;
+    }
+
+    header {
+        & .container {
+            & > *:not(span, :first-child) {
+                flex: 0 0 33.33%;
+                max-width: 33.33%;
+            }
+
+            & > :first-child {
+                aspect-ratio: 1;
+            }
+
+            &:not(:hover) > * {
+                border-radius: 1rem;
+
+                &:first-child {
+                    transform: translateX(-50%);
+                    opacity: 0;
+                    transition: transform 0.5s ease 0.25s, opacity 0.25s ease;
+                }
+
+                &:last-child {
+                    transform: translateX(100%);
+                }
+
+                &:nth-child(3) {
+                    transform: translateX(0);
+                }
+            }
+        }
+    }
+
+    /* Increased left padding for wider layouts */
+    #work .descContainer {
+        padding: calc(.2rem + 1vw) calc(2*((20% - .8rem) + 1rem)) 0 calc(1*((20% - .8rem) + 1rem));
+    }
+}

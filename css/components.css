@@ -1,0 +1,31 @@
+/* ▸ GLOBAL: Carousel Base Styles
+   -------------------------------------------------- */
+/* Generic carousel wrapper for sliding content */
+.carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+
+    &>* {
+        flex: 0 0 100%;
+        transition: transform 0.5s cubic-bezier(1, 0, 0, 1);
+
+        &>img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+& button {
+    outline: none;
+    border: none;
+    width: calc(1rem + 7.5%);
+    aspect-ratio: 1;
+    background-color: var(--gray);
+    border-radius: calc(.2rem + 0.2vw);
+    padding-bottom: 2%;
+    text-align: center;
+    font-size: var(--variable-font-size-small);
+}

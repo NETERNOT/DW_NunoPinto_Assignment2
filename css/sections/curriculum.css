@@ -1,0 +1,47 @@
+#curriculum {
+    /* Vertical list of education + experience blocks */
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    & > div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: .75rem;
+
+        & > * {
+            display: block;
+        }
+
+        /* Divider lines between entries */
+        & .divider {
+            width: 100%;
+            border: solid 1px var(--gray);
+        }
+
+        & h1 {
+            font-size: var(--font-size-Xlarge);
+            font-weight: 500;
+        }
+
+        & h2 {
+            font-size: var(--font-size-medium);
+            font-weight: 500;
+        }
+
+        & p:nth-child(2) {
+            /* Subheading: institution/company */
+            font-size: var(--font-size-regular);
+            font-weight: 500;
+        }
+
+        & p:last-child {
+            /* Year info */
+            font-size: var(--font-size-small);
+            font-weight: 400;
+        }
+    }
+}

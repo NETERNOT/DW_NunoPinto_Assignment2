@@ -1,0 +1,51 @@
+/* ▸ FONT IMPORTS
+   -------------------------------------------------- */
+/* Loads Apfel Grotesk font in regular weight for secondary typography */
+@font-face {
+    font-family: "Apfel Grotesk";
+    src: url("/fonts/ApfelGrotezk-Regular.woff2") format("woff2"),
+        url("/fonts/ApfelGrotezk-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+/* ▸ ROOT VARIABLES & GLOBAL RESET
+   -------------------------------------------------- */
+/* Color, font, and size variables for consistent styling */
+:root {
+    --black: #000;
+    --white: #f8f8f8;
+    --gray: #e0e0e0;
+
+    --font-size-small: .75rem;
+    --variable-font-size-small: calc(var(--font-size-small) / 2 + 1vw);
+    --font-size-regular: 1rem;
+    --font-size-medium: 1.5rem; /* new */
+    --font-size-large: 2rem; /* redefined */
+    --font-size-Xlarge: 3rem;
+    --font-size-XXlarge: 4rem;
+    --font-size-Gigantic: 6rem;
+
+    --primary-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --secondary-font: "Apfel Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Global reset to unify spacing and sizing across browsers */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--primary-font);
+}
+
+/* Smooth scrolling for anchor navigation */
+html {
+    scroll-behavior: smooth;
+}
+
+a{
+    text-decoration: none;
+    cursor: url("../images/LinkMouseIcon.svg");
+}

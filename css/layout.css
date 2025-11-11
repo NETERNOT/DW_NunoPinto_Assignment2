@@ -1,0 +1,42 @@
+/* ▸ BASE LAYOUT
+   -------------------------------------------------- */
+/* Global body wrapper with full width and background */
+body {
+    width: 100%;
+    background-color: var(--white);
+}
+
+
+/* ▸ NAVIGATION BAR
+   -------------------------------------------------- */
+nav {
+    /* Sticky nav centered on screen */
+    width: 100%;
+    position: sticky;
+    top: 1rem;
+    z-index: 1000;
+    padding: 0 2rem;
+
+    display: flex;
+    justify-content: center;
+
+    & > div {
+        /* Nav pill container */
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        background-color: var(--white);
+        border: solid 2px var(--black);
+        border-radius: 1rem;
+        padding: 1rem;
+    }
+
+    & img {
+        height: 1rem;
+    }
+
+    & a {
+        color: var(--black);
+        font-size: var(--font-size-regular);
+    }
+}

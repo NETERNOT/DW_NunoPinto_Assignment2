@@ -1,0 +1,48 @@
+/* ▸ FOOTER
+   -------------------------------------------------- */
+footer {
+    /* Full-height dark footer with contact details */
+    color: var(--white);
+    width: 100%;
+    min-height: 90vh;
+    background-color: var(--black);
+    padding: var(--font-size-large);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & h1 {
+        font-family: var(--secondary-font);
+        font-size: var(--font-size-Gigantic);
+        line-height: 100%;
+    }
+
+    & a {
+        color: var(--white);
+        font-size: var(--font-size-XXlarge);
+        border-bottom: solid 2px var(--white);
+        width: max-content;
+        word-break: break-all;
+        max-width: 100%;
+    }
+
+    & > div {
+        display: flex;
+        width: 100%;
+
+        &:first-child {
+            flex-direction: column;
+        }
+
+        &:last-child {
+            justify-content: space-between;
+            align-items: end;
+
+            & svg {
+                height: calc(var(--font-size-XXlarge) * 1.5);
+                width: auto;
+            }
+        }
+    }
+}
