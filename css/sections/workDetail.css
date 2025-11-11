@@ -11,10 +11,19 @@
     background-color: var(--white);
     box-shadow: 0 -10px 0rem var(--black);
 
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
     &.active{
         top: 10%;
         box-shadow: 0 -10px 1000rem var(--black);
 
+    }
+
+    & .goBack{
+        width: max-content;
+        border-bottom: solid 1px var(--black);
     }
     & .photoGrid {
         width: 100%;
