@@ -14,4 +14,3 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Initialize carousel after stars are available
   initCarousel(starsNodeList);
 });
- 

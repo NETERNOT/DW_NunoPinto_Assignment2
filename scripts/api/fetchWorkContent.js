@@ -1,4 +1,5 @@
 import { IMAGE_COUNT, API_KEY, QUERY } from "../config.js";
+import { initWorkDetail } from "../components/workDetails.js";
 
 /* ------------------ LOADER + SCROLL CONTROL FIXES ------------------ */
 
@@ -41,10 +42,13 @@ export async function fetchContent() {
     document.querySelector(".descContainer>.carousel").innerHTML = getText("description");
 
     hideLoader();
+
+    initWorkDetail();
+
     return document.querySelectorAll(".pagination span");
   } catch (error) {
     console.error("Error loading images:", error);
-    hideLoader(); // still hide the loader so user isn't stuck
+    hideLoader();
   }
 }
 
@@ -52,10 +56,15 @@ export async function fetchContent() {
 
 function renderImages(data) {
   return data.photos
-    .map(
-      (photo) =>
-        `<div class="carouselItem"><img src="${photo.src.landscape}" alt="${photo.alt}"></div>`
-    )
+    .map((photo, i) => `
+      <div class="carouselItem">
+        <img 
+          src="${photo.src.landscape}" 
+          alt="${photo.alt}" 
+          data-index="${i}"
+        >
+      </div>
+    `)
     .join("");
 }
 
@@ -63,21 +72,11 @@ function getText(type) {
   let html = "";
   for (let i = 0; i < IMAGE_COUNT; i++) {
     switch (type) {
-      case "pagination":
-        html += "<span>*</span>";
-        break;
-      case "title":
-        html += `<p>Lorem Ipsum ${i}</p>`;
-        break;
-      case "areas":
-        html += `<p>${getRandomAreas()}</p>`;
-        break;
-      case "date":
-        html += `<p>${getRandomDate()}</p>`;
-        break;
-      case "year":
-        html += `<p>${String(Math.floor(Math.random() * 10 + 2015))}</p>`;
-        break;
+      case "pagination": html += "<span>*</span>"; break;
+      case "title": html += `<p>Lorem Ipsum ${i}</p>`; break;
+      case "areas": html += `<p>${getRandomAreas()}</p>`; break;
+      case "date": html += `<p>${getRandomDate()}</p>`; break;
+      case "year": html += `<p>${String(Math.floor(Math.random() * 10 + 2015))}</p>`; break;
       case "description":
         html += `<p>There are many variations of passages of Lorem Ipsum available, but the majority have
         suffered alteration in some form, by injected humour, or randomised words which don't look
@@ -108,13 +107,12 @@ function hideLoader() {
 
   const rotationDuration = 1500;
   loaderImg.style.animationIterationCount = 1;
-
+ 
   setTimeout(() => {
-    loadingDiv.classList.remove("active");
-    loadingDiv.classList.add("exit");
-    document.body.classList.remove("no-scroll"); // Enable scrolling
+     loadingDiv.classList.remove("active");
+    loadingDiv.classList.add("exit"); 
+    document.body.classList.remove("no-scroll");
 
-    // If hash exists, scroll to it AFTER loader runs
     if (pendingHash) {
       const target = document.querySelector(pendingHash);
       if (target) target.scrollIntoView({ behavior: "smooth" });
