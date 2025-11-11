@@ -3,8 +3,8 @@
 /* Loads Apfel Grotesk font in regular weight for secondary typography */
 @font-face {
     font-family: "Apfel Grotesk";
-    src: url("/fonts/ApfelGrotezk-Regular.woff2") format("woff2"),
-        url("/fonts/ApfelGrotezk-Regular.woff") format("woff");
+    src: url("../assets/fonts/ApfelGrotezk-Regular.woff2") format("woff2"),
+        url("../assets/fonts/ApfelGrotezk-Regular.woff") format("woff");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -22,11 +22,13 @@
     --font-size-small: .75rem;
     --variable-font-size-small: calc(var(--font-size-small) / 2 + 1vw);
     --font-size-regular: 1rem;
-    --font-size-medium: 1.5rem; /* new */
-    --font-size-large: 2rem; /* redefined */
+    --font-size-medium: 1.5rem;
+    --font-size-large: 2rem;
     --font-size-Xlarge: 3rem;
     --font-size-XXlarge: 4rem;
+    --variable-font-size-XXlarge: calc(var(--font-size-XXlarge)/2 + 3vw);
     --font-size-Gigantic: 6rem;
+    --variable-font-size-Gigantic:calc(var(--font-size-Gigantic) / 2 + 5vw);
 
     --primary-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
     --secondary-font: "Apfel Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -47,5 +49,5 @@ html {
 
 a{
     text-decoration: none;
-    cursor: url("../images/LinkMouseIcon.svg");
+    cursor: url("../assets/images/LinkMouseIcon.svg"), auto;
 }
