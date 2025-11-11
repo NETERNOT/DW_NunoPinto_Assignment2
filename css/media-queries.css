@@ -51,6 +51,16 @@
     #work .descContainer {
         padding: calc(.2rem + 1vw) calc(1*((20% - .8rem) + 1rem)) 0;
     }
+
+    /* Realignment of last footer section */
+    footer>div:last-child{
+        flex-direction: row;
+        gap: 0;
+
+        & svg{
+            width: auto;
+        }
+    }
 }
 
 
